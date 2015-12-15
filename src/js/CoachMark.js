@@ -75,9 +75,7 @@ export default class CoachMark {
 		const featurePosition = element.getBoundingClientRect();
     const featureHeight = element.offsetHeight;
 
-    const markRect = content.getBoundingClientRect();
 		const markHeight = content.offsetHeight + 10;
-
 		const markWidth = container.offsetWidth;
 
 
@@ -90,7 +88,6 @@ export default class CoachMark {
 				throw new Error('insufficient room for coach mark placement');
 			}
 		} else if (opts.placement === 'top') {
-      console.log('top position, markHeight is ', markHeight, markRect);
 			if(featurePosition.top > markHeight) {
 				container.style.top = ((featureHeight + markHeight) * -1) + 'px';
 				container.style.left = (featurePosition.left + window.scrollX) + 'px';
