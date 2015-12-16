@@ -28,7 +28,7 @@ describe('CoachMark', () => {
 		document.body.removeChild(element);
 		document.body.removeChild(footer);
 		if(document.querySelector('.o-coach-mark__container')) {
-			var ct = document.querySelector('.o-coach-mark__container');
+			const ct = document.querySelector('.o-coach-mark__container');
       ct.parentNode.removeChild(ct);
 		}
 	});
