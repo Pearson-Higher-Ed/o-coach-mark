@@ -36,9 +36,14 @@ export default class CoachMark {
 		const titleText = document.createElement('div');
 
 		titleText.className = 'title';
-		if(opts.title) titleText.innerText = opts.title;
 
-		close.innerText = '✕';
+                //temp, move this check to a better place, better test element
+                const internalText=('textContent' in titleText)?'textContent':'innerText';
+
+		if(opts.title) titleText[internalText] = opts.title;
+
+		close[internalText] = '✕';
+                //close.setAttribute('aria-label','close');
 		close.href = '#';
 		close.className = 'close_icon';
 
@@ -53,7 +58,7 @@ export default class CoachMark {
 		content.appendChild(close)
 		content.appendChild(titleText);
 		const paragraph = document.createElement('p');
-		paragraph.innerText = opts.text;
+		paragraph[internalText] = opts.text;
 		content.appendChild(paragraph);
 		content.style.position = 'relative';
 		container.appendChild(content);
