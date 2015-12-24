@@ -9,9 +9,12 @@
 
 			.close_icon {
 				float: right;
-				text-decoration: none;
-				color: black;
-				margin: 5px;
+				color: #000000;
+				margin: 0;
+                                padding: 5px;
+                                background-color: transparent;
+                                border: 0;
+                                cursor: pointer;
 			}
 
 			.title {
