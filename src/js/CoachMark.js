@@ -32,15 +32,23 @@ export default class CoachMark {
 
 		//Build html
 		const container = document.createElement('div');
-		const close = document.createElement('a');
+		const close = document.createElement('button');
+		const closeSpan = document.createElement('span');
 		const titleText = document.createElement('div');
 
 		titleText.className = 'title';
-		if(opts.title) titleText.innerText = opts.title;
+                //temp, move this check to a better place, better test element  
+                const internalText=('textContent' in titleText)?'textContent':'innerText';
 
-		close.innerText = '✕';
-		close.href = '#';
+                if(opts.title) titleText[internalText] = opts.title;
+
+		close.setAttribute('type','button');
+                close.setAttribute('aria-label','close');
 		close.className = 'close_icon';
+
+                closeSpan[internalText] = '✕';
+                closeSpan.setAttribute('aria-hidden','true');
+		close.appendChild(closeSpan);
 
 		container.className = 'o-coach-mark__container';
 		container.style.visibility = 'hidden';
@@ -53,7 +61,7 @@ export default class CoachMark {
 		content.appendChild(close)
 		content.appendChild(titleText);
 		const paragraph = document.createElement('p');
-		paragraph.innerText = opts.text;
+                paragraph[internalText] = opts.text;
 		content.appendChild(paragraph);
 		content.style.position = 'relative';
 		container.appendChild(content);
@@ -76,28 +84,28 @@ export default class CoachMark {
 
 		if(opts.placement === 'bottom') {
 			if(window.innerHeight-featurePosition.bottom > markHeight) {
-					container.style.left = (featurePosition.left + window.scrollX) + 'px';
+					container.style.left = (featurePosition.left + window.pageXOffset) + 'px';
 			} else {
 				throw new Error('insufficient room for coach mark placement');
 			}
 		} else if (opts.placement === 'top') {
 			if(featurePosition.top > markHeight) {
 				container.style.top = ((featureHeight + markHeight) * -1) + 'px';
-				container.style.left = (featurePosition.left + window.scrollX) + 'px';
+				container.style.left = (featurePosition.left + window.pageXOffset) + 'px';
 			} else {
 				throw new Error('insufficient room for coach mark placement');
 			}
 		} else if (opts.placement === 'left') {
 			if(window.innerWidth - featurePosition.left > markWidth) {
 				container.style.top = (featureHeight * -1) + 'px';
-				container.style.left = (featurePosition.left + window.scrollX - markWidth) + 'px';
+				container.style.left = (featurePosition.left + window.pageXOffset - markWidth) + 'px';
 			} else {
 				throw new Error('insufficient room for coach mark placement');
 			}
 		} else if (opts.placement === 'right'){
 			if(window.innerWidth - featurePosition.right > markWidth) {
 				container.style.top = (featureHeight * -1) + 'px';
-				container.style.left = (featurePosition.right + window.scrollX) + 'px';
+				container.style.left = (featurePosition.right + window.pageXOffset) + 'px';
 			} else {
 				throw new Error('insufficient room for coach mark placement');
 			}
